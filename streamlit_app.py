@@ -22,6 +22,8 @@ session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
 st.dataframe(data=my_dataframe, use_container_width=True)
 
+submitted = st.button('Submit')
+
 ingredients_list = st.multiselect('Choose up to 5 ingredients:'
     , my_dataframe
     , max_selections=5
@@ -54,7 +56,7 @@ if ingredients_list:
         
         st.write(ingredients_string)    
 
-my_insert_stmt = """ insert into smoothies.public.orders(ingredients)
+        my_insert_stmt = """ insert into smoothies.public.orders(ingredients)
                     values ('""" + ingredients_string + """','"""+name_on_order+"""')"""
 
 st.write(my_insert_stmt)
