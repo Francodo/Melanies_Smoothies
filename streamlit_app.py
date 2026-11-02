@@ -65,7 +65,7 @@ if time_to_insert:
 # We need to bring in a Python package library called [requests](https://docs.python-requests.org/en/latest/(opens in a new tab)).
 import requests  
 smoothiefroot_response = requests.get("[https://my.smoothiefroot.com/api/fruit/watermelon](https://my.smoothiefroot.com/api/fruit/watermelon)")  
-st.text(smoothiefroot_response)
+st.text(smoothiefroot_response.json())
 
     
 
