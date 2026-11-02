@@ -54,22 +54,9 @@ if ingredients_list:
         ingredients_string += fruit_chosen + ''
         st.write(fruit_chosen)    
 
-#my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
-#        values ('""" + ingredients_string + """','""" + name_on_order + """')"""
-#st.write(my_insert_stmt)
-
-# Safeguard against single quotes (e.g., names like O'Connor)
-safe_ingredients = ingredients_string.replace("'", "''")
-safe_name = name_on_order.replace("'", "''")
-
-# Use an f-string instead of complex + concatenation
-my_insert_stmt = f"""
-    insert into smoothies.public.orders(ingredients, name_on_order)
-    values ('{safe_ingredients}', '{safe_name}')
-"""
-
-
-
+my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
+        values ('""" + ingredients_string + """','""" + name_on_order + """')"""
+st.write(my_insert_stmt)
 
 time_to_insert = st.button('Submit Order')
 if time_to_insert:
