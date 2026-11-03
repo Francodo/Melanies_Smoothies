@@ -5,6 +5,7 @@
 import streamlit as st
 import os
 from snowflake.snowpark.functions import col
+from snowflake.snowpark.functions import col, when_matched
 import requests
 import pandas as pd
 
