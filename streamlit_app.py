@@ -11,7 +11,6 @@ st.title(f":cup_with_straw: Customize Your Smoothie :cup_with_straw: ")
 st.write(
   """ Choose the fruits you want in your custom Smoothie!
 
-        This is my first Streamlit Python application.
   """
 )
 
@@ -52,7 +51,7 @@ if ingredients_list:
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen + ''
         search_on = pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]  
-        st.write('The search value for', fruit_chosen, 'is', search_on, ',' )
+        # st.write('The search value for', fruit_chosen, 'is', search_on, ',' )
         smoothiefroot_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{search_on}")
         sf_df=st.dataframe(data=smoothiefroot_response.json(), use_container_width = True)
         
