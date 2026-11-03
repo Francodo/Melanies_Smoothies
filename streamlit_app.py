@@ -69,9 +69,36 @@ if time_to_insert:
     session.sql(my_insert_stmt).collect()
     st.success('Your Smoothie is ordered!', icon="✅")
 
-# We need to bring in a Python package library called [requests](https://docs.python-requests.org/en/latest/(opens in a new tab)).
-  
+st.subheader("Pending Orders")
 
+# Fetch orders from Snowflake where ORDER_FILLED is false/0
+pending_orders_df = session.table("smoothies.public.orders").filter(col("ORDER_FILLED") == 0)
+# Convert Snowpark dataframe to pandas for st.data_editor
+editable_df = pending_orders_df.to_pandas() 
+  
+# Display the data editor with checkboxes for ORDER_FILLED
+if not editable_df.empty:
+    edited_dataset = st.data_editor(editable_df, key="pending_orders_editor")
+
+    submitted = st.button('Submit')
+
+    if submitted:
+        try:
+            # Create a Snowpark dataframe from the edited pandas dataframe
+            og_dataset = session.create_dataframe(edited_dataset)
+            
+            # Update the Snowflake table where order IDs match
+            session.table("smoothies.public.orders").merge(
+                og_dataset,
+                (session.table("smoothies.public.orders")['ORDER_UID'] == og_dataset['ORDER_UID']),
+                [when_matched().update({'ORDER_FILLED': og_dataset['ORDER_FILLED']})]
+            )
+            st.success("Order(s) updated successfully!", icon="👍")
+            st.rerun()
+        except Exception as e:
+            st.error(f"Something went wrong: {e}")
+else:
+    st.success("There are no pending orders right now! 🎉", icon="☕")
 
     
 
