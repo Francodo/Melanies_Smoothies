@@ -1,6 +1,8 @@
+
+# This app is designed to demonstrate how to create a user interface for accepting user input, reading in data, and writing back data to Snowflake!
+
 # Import python packages
 import streamlit as st
-# from snowflake.snowpark.context import get_active_session
 import os
 from snowflake.snowpark.functions import col
 import requests
