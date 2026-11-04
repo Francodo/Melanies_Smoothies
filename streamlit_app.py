@@ -52,7 +52,7 @@ if ingredients_list:
 # for each_fruit in ingredients_list:# Add the For Block. The += operator means "add this to what is already in the variable" so each # time the FOR Loop is repeated, a new fruit name is appended to the existing string.
 
     for fruit_chosen in ingredients_list:
-        ingredients_string += fruit_chosen + ''
+        ingredients_string += fruit_chosen +  ' '
         search_on = pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]  
         # st.write('The search value for', fruit_chosen, 'is', search_on, ',' )
         smoothiefroot_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{search_on}")
