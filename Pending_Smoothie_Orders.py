@@ -12,7 +12,10 @@ st.write(""" Orders that will need to be filled.
            """
 )
 
-session = get_active_session()
+# session = get_active_session()
+cnx = st.connection("snowflake")
+session = cnx.session()
+
 my_dataframe = session.table("smoothies.public.orders").filter(col('ORDER_FILLED'))
 
 if my_dataframe:
