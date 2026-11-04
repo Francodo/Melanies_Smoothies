@@ -24,13 +24,9 @@ st.write('The name on your Smoothie will be: ', name_on_order)
 cnx = st.connection("snowflake")
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
-#st.dataframe(data=my_dataframe, use_container_width=True)
-#st.stop()
 
 # Convert the snowpark dataframe to pandas dataframe so that we can use the LOC function 
 pd_df = my_dataframe.to_pandas()
-#st.dataframe(pd_df)
-#st.stop()
 
 ingredients_list = st.multiselect('Choose up to 5 ingredients:'
     , my_dataframe
@@ -74,6 +70,7 @@ st.subheader("Pending Orders")
 
 # Fetch orders from Snowflake where ORDER_FILLED is false/0
 pending_orders_df = session.table("smoothies.public.orders").filter(col("ORDER_FILLED") == 0)
+
 # Convert Snowpark dataframe to pandas for st.data_editor
 editable_df = pending_orders_df.to_pandas() 
   
